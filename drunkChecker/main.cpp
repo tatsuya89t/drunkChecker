@@ -7,11 +7,26 @@
 //
 
 #include <iostream>
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    printf("test change\n");
-    printf("takuma");
+    //画像の入力
+    Mat frame, size;
+    //映像の宣言
+    VideoCapture cap(0);
+    // キャプチャのエラー処理
+    if (!cap.isOpened()) return -1;
+    
+    while (1) {
+        // カメラ映像の取得
+        cap >> frame;
+        // 映像の表示
+        imshow("Camera", frame);
+        // キー入力があれば終了
+        if (waitKey(30) >= 0) break;
+    }
+    
     return 0;
 }
