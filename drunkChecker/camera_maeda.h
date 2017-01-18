@@ -20,6 +20,6 @@ typedef struct Drunker {
     Mat result_img;
 };
 
-Drunker camera(VideoCapture cap);
+Drunker camera(VideoCapture cap, Mat ground);
 
 #endif /* defined(__drunkChecker__camera_maeda__) */

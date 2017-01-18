@@ -15,11 +15,13 @@ using namespace cv;
 
 int main(int argc, const char * argv[]) {
     VideoCapture cap(0);
-    Mat result;
+    Mat ground, result;
     Drunker drunker;
     
+    cap >> ground;
+    
     while(1){
-        drunker = camera(cap);   //前田担当
+        drunker = camera(cap, ground);   //前田担当
         
         //imshow("result2",drunker.result_img);
         
