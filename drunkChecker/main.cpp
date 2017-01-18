@@ -10,9 +10,20 @@
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
-void camera();
+Mat camera(VideoCapture cap);
 
 int main(int argc, const char * argv[]) {
-    camera();   //前田担当
+    VideoCapture cap(0);
+    Mat result;
+    while(1){
+        result = camera(cap);   //前田担当
+        imshow("result",result);
+        
+        // キー入力
+        int key=waitKey(30);
+        //終了キー
+        if (key == 'q' || key == 'Q')   break;
+        
+    }
     return 0;
 }

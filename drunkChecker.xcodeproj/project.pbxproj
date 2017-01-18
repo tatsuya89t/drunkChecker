@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4566413F1E0A79AE0060454F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566413E1E0A79AE0060454F /* main.cpp */; };
 		63DDA9C31E2F504C00C7C52F /* camera_maeda.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63DDA9C11E2F504C00C7C52F /* camera_maeda.cpp */; };
+		63DDA9C61E2F588300C7C52F /* interface_yamguchi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63DDA9C41E2F588300C7C52F /* interface_yamguchi.cpp */; };
 		63F2F6821E2C874600AAF022 /* libopencv_imgcodecs.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F2F6801E2C874600AAF022 /* libopencv_imgcodecs.3.0.0.dylib */; };
 		63F2F6831E2C874600AAF022 /* libopencv_imgproc.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F2F6811E2C874600AAF022 /* libopencv_imgproc.3.0.0.dylib */; };
 		63F2F6851E2C875700AAF022 /* libopencv_core.3.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F2F6841E2C875700AAF022 /* libopencv_core.3.0.0.dylib */; };
@@ -34,6 +35,8 @@
 		4566413E1E0A79AE0060454F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		63DDA9C11E2F504C00C7C52F /* camera_maeda.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera_maeda.cpp; sourceTree = "<group>"; };
 		63DDA9C21E2F504C00C7C52F /* camera_maeda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera_maeda.h; sourceTree = "<group>"; };
+		63DDA9C41E2F588300C7C52F /* interface_yamguchi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = interface_yamguchi.cpp; sourceTree = "<group>"; };
+		63DDA9C51E2F588300C7C52F /* interface_yamguchi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interface_yamguchi.h; sourceTree = "<group>"; };
 		63F2F6801E2C874600AAF022 /* libopencv_imgcodecs.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.3.0.0.dylib; path = ../../../../../../../opt/local/lib/libopencv_imgcodecs.3.0.0.dylib; sourceTree = "<group>"; };
 		63F2F6811E2C874600AAF022 /* libopencv_imgproc.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.3.0.0.dylib; path = ../../../../../../../opt/local/lib/libopencv_imgproc.3.0.0.dylib; sourceTree = "<group>"; };
 		63F2F6841E2C875700AAF022 /* libopencv_core.3.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.3.0.0.dylib; path = ../../../../../../../opt/local/lib/libopencv_core.3.0.0.dylib; sourceTree = "<group>"; };
@@ -85,6 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				4566413E1E0A79AE0060454F /* main.cpp */,
+				63DDA9C41E2F588300C7C52F /* interface_yamguchi.cpp */,
+				63DDA9C51E2F588300C7C52F /* interface_yamguchi.h */,
 				63DDA9C11E2F504C00C7C52F /* camera_maeda.cpp */,
 				63DDA9C21E2F504C00C7C52F /* camera_maeda.h */,
 			);
@@ -148,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4566413F1E0A79AE0060454F /* main.cpp in Sources */,
+				63DDA9C61E2F588300C7C52F /* interface_yamguchi.cpp in Sources */,
 				63DDA9C31E2F504C00C7C52F /* camera_maeda.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
