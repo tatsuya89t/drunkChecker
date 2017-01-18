@@ -12,4 +12,14 @@
 #include <stdio.h>
 #include <iostream>
 #include <opencv2/opencv.hpp>
+using namespace cv;
+typedef struct Drunker {
+    int x, y;
+    int w, h;
+    int flug;
+    Mat result_img;
+};
+
+Drunker camera(VideoCapture cap);
+
 #endif /* defined(__drunkChecker__camera_maeda__) */

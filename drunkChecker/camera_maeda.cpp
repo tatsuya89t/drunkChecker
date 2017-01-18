@@ -7,9 +7,8 @@
 //
 
 #include "camera_maeda.h"
-using namespace cv;
 
-Mat camera(VideoCapture cap) {
+Drunker camera(VideoCapture cap) {
     
     //カメラ映像の表示用
     Mat frame;
@@ -17,10 +16,11 @@ Mat camera(VideoCapture cap) {
     cap >> frame;
     //結果画像
     Mat result=Mat::zeros(frame.size().height, frame.size().width, CV_8U);
+    Drunker d;
     
     //映像の宣言
     // キャプチャのエラー処理
-    if (!cap.isOpened()) return result;
+    if (!cap.isOpened()) return d;
     
     
     Mat ground; //背景画像用
@@ -32,5 +32,9 @@ Mat camera(VideoCapture cap) {
     //背景画像表示
     imshow("background", ground);
     
-    return result;
+    imshow("result",result);
+    
+    d.result_img = result.clone();
+    
+    return d;
 }

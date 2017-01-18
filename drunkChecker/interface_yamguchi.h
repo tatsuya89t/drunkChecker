@@ -10,5 +10,8 @@
 #define __drunkChecker__interface_yamguchi__
 
 #include <stdio.h>
+#include "camera_maeda.h"
+
+void showResult(Drunker drunk);
 
 #endif /* defined(__drunkChecker__interface_yamguchi__) */

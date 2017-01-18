@@ -7,3 +7,9 @@
 //
 
 #include "interface_yamguchi.h"
+
+
+
+void showResult(Drunker drunk){
+    
+}

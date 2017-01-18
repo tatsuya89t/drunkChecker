@@ -8,16 +8,22 @@
 
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include "camera_maeda.h"
+#include "interface_yamguchi.h"
 
 using namespace cv;
-Mat camera(VideoCapture cap);
 
 int main(int argc, const char * argv[]) {
     VideoCapture cap(0);
     Mat result;
+    Drunker drunker;
+    
     while(1){
-        result = camera(cap);   //前田担当
-        imshow("result",result);
+        drunker = camera(cap);   //前田担当
+        
+        //imshow("result2",drunker.result_img);
+        
+        showResult(drunker);
         
         // キー入力
         int key=waitKey(30);
