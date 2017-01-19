@@ -20,22 +20,33 @@ void showResult(Drunker drunk){
     
     Mat result;
     char* nameb1 = "button1";
+    int center_x = 0;
+    int center_y = 0;
     
     Mat icon = imread("../../../../../img/dangerIcon.png");
     
-    if(!(icon.empty())){
-        drunk.flug = 1;
+    result = drunk.result_img.clone();
+    if(icon.empty()){
+        printf("Don't read a image file!\n");
+        imshow("resultFinal", result);
+        return;
     }
     
-    
-    result = drunk.result_img.clone();
+    drunk.flug = 1;
+    drunk.x_min = 500;
+    drunk.x_max = 1000;
+    drunk.y_min = 100;
+    drunk.y_max = 200;
+    center_x = (drunk.x_max+drunk.x_min)/2;
+    center_y = (drunk.y_max+drunk.y_min)/2;
     
     if (drunk.flug == 1) {
         printf("hit\n");
-        result = PinP_tr(result, icon, 1000, 500);
+        result = PinP_tr(result, icon, center_x, center_y);
+        printf("%d, %d\n", center_x, center_y);
     }
     
-    //createButton(nameb1, saveResult);
+    createButton(nameb1, saveResult);
     
     imshow("resutlFinal", result);
     
