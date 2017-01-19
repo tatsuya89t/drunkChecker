@@ -23,7 +23,10 @@ void showResult(Drunker drunk){
     
     Mat icon = imread("../../../../../img/dangerIcon.png");
     
-    drunk.flug = 1;
+    if(!(icon.empty())){
+        drunk.flug = 1;
+    }
+    
     
     result = drunk.result_img.clone();
     
