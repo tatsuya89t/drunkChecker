@@ -21,7 +21,7 @@ void showResult(Drunker drunk){
     Mat result;
     char* nameb1 = "button1";
     
-    Mat icon = imread("img/dangerIcon.png");
+    Mat icon = imread("../../../../../img/dangerIcon.png");
     
     drunk.flug = 1;
     
