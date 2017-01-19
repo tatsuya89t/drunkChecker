@@ -51,6 +51,15 @@ Drunker camera(VideoCapture cap, Mat ground) {
     
     threshold(result, bin_img, 128 ,255, cv::THRESH_BINARY|cv::THRESH_OTSU);
     
+    //膨張収縮処理
+    Mat d_img, e_img;
+    
+    dilate(bin_img, d_img, Mat(), Point(-1,-1),10);
+    erode(d_img, e_img, Mat(), Point(-1,-1),10);
+    
+    //膨張収縮画像表示
+    imshow("result",e_img);
+    
     
     //領域座標の算出
     //人領域のx座標の最小値最大値
@@ -84,11 +93,12 @@ Drunker camera(VideoCapture cap, Mat ground) {
     // 映像の表示
     imshow("Camera", frame);
     //背景画像表示
-    imshow("background", ground);
+    //imshow("background", ground);
     
+    //二値化画像表示
     imshow("result",bin_img);
     
-    d.result_img = result.clone();
+    d.result_img = frame.clone();
     
     return d;
 }

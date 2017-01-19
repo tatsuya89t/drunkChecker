@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/sawanolab/Documents/xcodeProject/computerVision/drunkChecker/drunkChecker/main.cpp \
+  /Users/x12101xx/Desktop/大学院\ 講義/2016_後期/コンピュータビジョン/drunkChecker/drunkChecker/main.cpp \
   /opt/local/include/opencv2/opencv.hpp \
   /opt/local/include/opencv2/core.hpp \
   /opt/local/include/opencv2/core/cvdef.h \
@@ -49,5 +49,5 @@ dependencies: \
   /opt/local/include/opencv2/imgcodecs/imgcodecs_c.h \
   /opt/local/include/opencv2/videoio/videoio_c.h \
   /opt/local/include/opencv2/ml.hpp \
-  /Users/sawanolab/Documents/xcodeProject/computerVision/drunkChecker/drunkChecker/camera_maeda.h \
-  /Users/sawanolab/Documents/xcodeProject/computerVision/drunkChecker/drunkChecker/interface_yamguchi.h
+  /Users/x12101xx/Desktop/大学院\ 講義/2016_後期/コンピュータビジョン/drunkChecker/drunkChecker/camera_maeda.h \
+  /Users/x12101xx/Desktop/大学院\ 講義/2016_後期/コンピュータビジョン/drunkChecker/drunkChecker/interface_yamguchi.h
