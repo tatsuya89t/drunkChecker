@@ -14,12 +14,14 @@
 using namespace cv;
 
 int main(int argc, const char * argv[]) {
+    
+    
     VideoCapture cap(0);
     Mat ground, result;
     Drunker drunker;
     
     cap >> ground;
-    
+        
     while(1){
         drunker = camera(cap, ground);   //前田担当
         
@@ -33,5 +35,6 @@ int main(int argc, const char * argv[]) {
         if (key == 'q' || key == 'Q')   break;
         
     }
+    
     return 0;
 }

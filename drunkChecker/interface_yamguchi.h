@@ -11,9 +11,11 @@
 
 #include <stdio.h>
 #include "camera_maeda.h"
+#include <math.h>
 
 void showResult(Drunker drunk);
 void saveResult(int state, void* userdata);
 Mat PinP_tr(const cv::Mat &srcImg, const cv::Mat &smallImg, const int tx, const int ty);
+int getBarWidth(Mat img, int res);
 
 #endif /* defined(__drunkChecker__interface_yamguchi__) */

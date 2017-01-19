@@ -19,9 +19,14 @@
 void showResult(Drunker drunk){
     
     Mat result;
-    char* nameb1 = "button1";
     int center_x = 0;
     int center_y = 0;
+    
+    //バー用変数
+    //Mat img = cv::Mat::zeros(500, 500, CV_8UC3);
+    Point bar1 = Point(0, drunk.result_img.size().height-50);
+    Point bar2;
+    
     
     Mat icon = imread("../../../../../img/dangerIcon.png");
     
@@ -40,20 +45,39 @@ void showResult(Drunker drunk){
     center_x = (drunk.x_max+drunk.x_min)/2;
     center_y = (drunk.y_max+drunk.y_min)/2;
     
+    bar2 = Point(500, drunk.result_img.size().height);
+    
     if (drunk.flug == 1) {
-        printf("hit\n");
+        //printf("hit\n");
         result = PinP_tr(result, icon, center_x, center_y);
-        printf("%d, %d\n", center_x, center_y);
+        //printf("%d, %d\n", center_x, center_y);
+        rectangle(result, bar1, bar2, cv::Scalar(200,0,0), -1, CV_AA);
     }
     
-    createButton(nameb1, saveResult);
-    
-    imshow("resutlFinal", result);
+    imshow("resultFinal", result);
     
 }
 
 void saveResult(int state, void* userdata){
     
+}
+
+//％バーの長さを算出
+int getBarWidth(Mat img, int res){
+    
+    int w = 0;
+    int max = 20;
+    int parWidth = img.size().width/100;
+    int parW = (int)((double)res/max * 100);
+    
+    for (int i=0; i<=parW; i++) {
+        w += parWidth;
+        if (w > img.size().width) {
+            w = img.size().width;
+        }
+    }
+    
+    return w;
 }
 
 // 画像を画像に貼り付ける関数
