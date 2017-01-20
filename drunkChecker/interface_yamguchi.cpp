@@ -37,7 +37,7 @@ void showResult(Drunker drunk){
         return;
     }
     
-    drunk.flug = 1;
+    //drunk.flug = 1;
 //    drunk.x_min = 500;
 //    drunk.x_max = 1000;
 //    drunk.y_min = 100;
