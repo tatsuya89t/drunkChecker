@@ -20,7 +20,7 @@ Drunker camera(VideoCapture cap, Mat ground) {
     //映像の取得
     cap >> frame;
     if (frame.empty()) { //入力失敗の場合
-        fprintf(stderr, "File is not opened.\n");
+        //fprintf(stderr, "File is not opened.\n");
         return d;
     }
     
