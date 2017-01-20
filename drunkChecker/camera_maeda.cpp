@@ -11,39 +11,27 @@
 Drunker camera(VideoCapture cap, Mat ground) {
     //飲酒者？情報の構造体
     Drunker d;
-    
-    //カメラ映像の表示用
-    Mat frame;
-    
     //グレースケール用
     Mat dst_f, dst_g;
-    
-    //二値化
+    //二値化用
     Mat bin_img;
     
-    // カメラ映像の取得
+    //入力映像用
+    Mat frame;
+    //映像の取得
     cap >> frame;
     if (frame.empty()) { //入力失敗の場合
         fprintf(stderr, "File is not opened.\n");
         return d;
     }
-    
-    //結果画像
+    //結果画像用
     Mat result = Mat::zeros(frame.size().height, frame.size().width, CV_8UC1);
-    
-    
-    
-    //映像の宣言
-    // キャプチャのエラー処理
-    if (!cap.isOpened()) return d;
-    
-    unsigned char s_f, s_g, ans; //色値
     
     //フレーム画像と背景画像のグレースケール変換
     cvtColor(frame, dst_f,CV_BGR2GRAY);
     cvtColor(ground, dst_g,CV_BGR2GRAY);
     
-    
+    unsigned char s_f, s_g, ans; //差分計算用
     //背景差分
     for(int y=0; y<frame.size().height; y++){
         for(int x=0; x<frame.size().width; x++){
@@ -69,12 +57,12 @@ Drunker camera(VideoCapture cap, Mat ground) {
     //膨張収縮画像表示
     //imshow("result",e_img);
     
-    //人領域の座標取得処理
     d = abs(bin_img, d);
     
+    //数値確認用
+    printf("%d, %d, %d, %d\n",d.x_min,d.x_max,d.y_min,d.y_max);
     
-    
-    
+    //テスト確認用
     // 入力映像の表示
     //imshow("Camera", frame);
     
