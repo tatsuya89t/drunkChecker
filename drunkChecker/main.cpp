@@ -40,7 +40,7 @@ int main(int argc, const char * argv[]) {
         {
             cap.set( CAP_PROP_POS_FRAMES , 0 );
         }
-        printf("%d %d\n",now,max-4);
+        //printf("%d %d\n",now,max-4);
         drunker = camera(cap, ground);   //前田担当
         
         //imshow("result2",drunker.result_img);
