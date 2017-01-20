@@ -22,9 +22,20 @@ int main(int argc, const char * argv[]) {
     Mat result;
     Drunker drunker;
     
+    //背景画像の入力
     cap >> ground;
-        
+    
+    if (ground.empty()) { //入力失敗の場合
+        fprintf(stderr, "File is not opened.\n");
+        return (-1);
+    }
+    
     while(1){
+        //動画終了した時用
+        if(cv::waitKey(30) >= 0 || cap.get(CV_CAP_PROP_POS_AVI_RATIO) == 1){
+            waitKey();
+            break;
+        }
         drunker = camera(cap, ground);   //前田担当
         
         //imshow("result2",drunker.result_img);
