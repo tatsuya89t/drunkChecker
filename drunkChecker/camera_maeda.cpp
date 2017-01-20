@@ -48,7 +48,7 @@ Drunker camera(VideoCapture cap, Mat ground) {
     //二値化画像表示
     imshow("result",bin_img);
     
-    if(d.y_min > frame.size().height/2){
+    if(d.y_min > 100){
         d.flug=1;
     }else{
         d.flug=0;
