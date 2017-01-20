@@ -41,7 +41,7 @@ Drunker camera(VideoCapture cap, Mat ground) {
             s_f = dst_f.at<unsigned char>(y, x); //カメラ画素値の取得
             s_g = dst_g.at<unsigned char>(y, x); //背景画素値の取得
             ans = abs(s_f - s_g);
-            if(ans<20){
+            if(ans<100){
                 s_f = 0;
             }
             
