@@ -9,6 +9,8 @@
 #include "camera_maeda.h"
 
 Drunker camera(VideoCapture cap, Mat ground) {
+    //飲酒者？情報の構造体
+    Drunker d;
     
     //カメラ映像の表示用
     Mat frame;
@@ -21,9 +23,15 @@ Drunker camera(VideoCapture cap, Mat ground) {
     
     // カメラ映像の取得
     cap >> frame;
+    if (frame.empty()) { //入力失敗の場合
+        fprintf(stderr, "File is not opened.\n");
+        return d;
+    }
+    
     //結果画像
     Mat result = Mat::zeros(frame.size().height, frame.size().width, CV_8UC1);
-    Drunker d;
+    
+    
     
     //映像の宣言
     // キャプチャのエラー処理
@@ -61,12 +69,12 @@ Drunker camera(VideoCapture cap, Mat ground) {
     //膨張収縮画像表示
     //imshow("result",e_img);
     
+    //人領域の座標取得処理
     d = abs(bin_img, d);
     
-    //数値確認用
-    printf("%d, %d, %d, %d\n",d.x_min,d.x_max,d.y_min,d.y_max);
     
-    //テスト確認用
+    
+    
     // 入力映像の表示
     //imshow("Camera", frame);
     
@@ -76,10 +84,13 @@ Drunker camera(VideoCapture cap, Mat ground) {
     //二値化画像表示
     //imshow("result",bin_img);
     
+    //検出結果画像を入力
     d.result_img = frame.clone();
     
     return d;
 }
+
+
 
 //領域座標の算出
 Drunker abs(Mat bin_img, Drunker d){
@@ -112,5 +123,9 @@ Drunker abs(Mat bin_img, Drunker d){
             }
         }
     }
+    
+    //数値確認用
+    //printf("%d, %d, %d, %d\n",d.x_min,d.x_max,d.y_min,d.y_max);
+    
     return d;
 }
