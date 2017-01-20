@@ -38,10 +38,10 @@ void showResult(Drunker drunk){
     }
     
     drunk.flug = 1;
-    drunk.x_min = 500;
-    drunk.x_max = 1000;
-    drunk.y_min = 100;
-    drunk.y_max = 200;
+//    drunk.x_min = 500;
+//    drunk.x_max = 1000;
+//    drunk.y_min = 100;
+//    drunk.y_max = 200;
     center_x = (drunk.x_max+drunk.x_min)/2;
     center_y = (drunk.y_max+drunk.y_min)/2;
     
