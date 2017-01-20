@@ -11,9 +11,8 @@
 Drunker camera(VideoCapture cap, Mat ground) {
     //飲酒者？情報の構造体
     Drunker d;
-    //グレースケール用
-    Mat dst_f, dst_g;
-    //二値化用
+    
+    //二値化画像保存用
     Mat bin_img;
     
     //入力映像用
@@ -24,43 +23,20 @@ Drunker camera(VideoCapture cap, Mat ground) {
         fprintf(stderr, "File is not opened.\n");
         return d;
     }
-    //結果画像用
-    Mat result = Mat::zeros(frame.size().height, frame.size().width, CV_8UC1);
     
-    //フレーム画像と背景画像のグレースケール変換
-    cvtColor(frame, dst_f,CV_BGR2GRAY);
-    cvtColor(ground, dst_g,CV_BGR2GRAY);
-    
-    unsigned char s_f, s_g, ans; //差分計算用
     //背景差分
-    for(int y=0; y<frame.size().height; y++){
-        for(int x=0; x<frame.size().width; x++){
-            s_f = dst_f.at<unsigned char>(y, x); //カメラ画素値の取得
-            s_g = dst_g.at<unsigned char>(y, x); //背景画素値の取得
-            ans = abs(s_g - s_f);
-            if(ans<100){
-                s_f = 0;
-            }
-            
-            result.at<unsigned char>(y, x) = s_f;
-        }
-    }
-    
-    threshold(result, bin_img, 128 ,255, cv::THRESH_BINARY|cv::THRESH_OTSU);
+    bin_img = abs(frame, ground);
     
     //膨張収縮処理
     Mat d_img, e_img;
-    
     //dilate(bin_img, d_img, Mat(), Point(-1,-1),10);
     //erode(d_img, e_img, Mat(), Point(-1,-1),10);
     
     //膨張収縮画像表示
     //imshow("result",e_img);
     
-    d = abs(bin_img, d);
-    
-    //数値確認用
-    printf("%d, %d, %d, %d\n",d.x_min,d.x_max,d.y_min,d.y_max);
+    //白領域のxy座標の最大値最小値
+    d = Maxmin(bin_img, d);
     
     //テスト確認用
     // 入力映像の表示
@@ -79,9 +55,40 @@ Drunker camera(VideoCapture cap, Mat ground) {
 }
 
 
+//背景差分
+Mat abs(Mat frame, Mat ground){
+    //結果画像用
+    Mat result = Mat::zeros(frame.size().height, frame.size().width, CV_8UC1);
+    
+    //グレースケール用
+    Mat dst_f, dst_g;
+    //二値化用
+    Mat bin_img;
+    //フレーム画像と背景画像のグレースケール変換
+    cvtColor(frame, dst_f,CV_BGR2GRAY);
+    cvtColor(ground, dst_g,CV_BGR2GRAY);
+    
+    unsigned char s_f, s_g, ans; //差分計算用
+    //背景差分
+    for(int y=0; y<frame.size().height; y++){
+        for(int x=0; x<frame.size().width; x++){
+            s_f = dst_f.at<unsigned char>(y, x); //カメラ画素値の取得
+            s_g = dst_g.at<unsigned char>(y, x); //背景画素値の取得
+            ans = abs(s_g - s_f);
+            if(ans<100){
+                s_f = 0;
+            }
+            
+            result.at<unsigned char>(y, x) = s_f;
+        }
+    }
+
+    threshold(result, bin_img, 128 ,255, cv::THRESH_BINARY|cv::THRESH_OTSU);
+    return bin_img;
+}
 
 //領域座標の算出
-Drunker abs(Mat bin_img, Drunker d){
+Drunker Maxmin(Mat bin_img, Drunker d){
     
     //人領域のx座標の最小値最大値
     d.x_min = bin_img.size().width;
