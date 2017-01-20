@@ -35,12 +35,13 @@ Drunker camera(VideoCapture cap, Mat ground) {
     cvtColor(frame, dst_f,CV_BGR2GRAY);
     cvtColor(ground, dst_g,CV_BGR2GRAY);
     
+    
     //背景差分
     for(int y=0; y<frame.size().height; y++){
         for(int x=0; x<frame.size().width; x++){
             s_f = dst_f.at<unsigned char>(y, x); //カメラ画素値の取得
             s_g = dst_g.at<unsigned char>(y, x); //背景画素値の取得
-            ans = abs(s_f - s_g);
+            ans = abs(s_g - s_f);
             if(ans<100){
                 s_f = 0;
             }
@@ -54,23 +55,46 @@ Drunker camera(VideoCapture cap, Mat ground) {
     //膨張収縮処理
     Mat d_img, e_img;
     
-    dilate(bin_img, d_img, Mat(), Point(-1,-1),10);
-    erode(d_img, e_img, Mat(), Point(-1,-1),10);
+    //dilate(bin_img, d_img, Mat(), Point(-1,-1),10);
+    //erode(d_img, e_img, Mat(), Point(-1,-1),10);
     
     //膨張収縮画像表示
-    imshow("result",e_img);
+    //imshow("result",e_img);
     
+    d = abs(bin_img, d);
     
-    //領域座標の算出
+    //数値確認用
+    printf("%d, %d, %d, %d\n",d.x_min,d.x_max,d.y_min,d.y_max);
+    
+    //テスト確認用
+    // 入力映像の表示
+    //imshow("Camera", frame);
+    
+    //背景画像表示
+    //imshow("background", ground);
+    
+    //二値化画像表示
+    //imshow("result",bin_img);
+    
+    d.result_img = frame.clone();
+    
+    return d;
+}
+
+//領域座標の算出
+Drunker abs(Mat bin_img, Drunker d){
+    
     //人領域のx座標の最小値最大値
-    d.x_min = frame.size().width;
+    d.x_min = bin_img.size().width;
     d.x_max = 0;
     //人領域のy座標の最小値最大値
-    d.y_min = frame.size().height;
+    d.y_min = bin_img.size().height;
     d.y_max = 0;
     
-    for(int y=0; y<frame.size().height; y++){
-        for(int x=0; x<frame.size().width; x++){
+    unsigned char s_f;
+    
+    for(int y=0; y<bin_img.size().height; y++){
+        for(int x=0; x<bin_img.size().width; x++){
             s_f = bin_img.at<unsigned char>(y, x); //カメラ画素値の取得
             if(s_f == 255){
                 if(x<d.x_min){
@@ -88,17 +112,5 @@ Drunker camera(VideoCapture cap, Mat ground) {
             }
         }
     }
-    
-    //テスト確認用
-    // 映像の表示
-    imshow("Camera", frame);
-    //背景画像表示
-    //imshow("background", ground);
-    
-    //二値化画像表示
-    imshow("result",bin_img);
-    
-    d.result_img = frame.clone();
-    
     return d;
 }

@@ -17,7 +17,7 @@ int main(int argc, const char * argv[]) {
     
     
     //VideoCapture cap(0);  //PCのカメラ入力
-    VideoCapture cap("../../../../../mov/00060_2.mov");   //動画ファイル入力
+    VideoCapture cap("../../../../../mov/00060_2.mp4");   //動画ファイル入力
     Mat ground; //= imread("../../../../../img/ground.png");   //背景画像
     Mat result;
     Drunker drunker;
