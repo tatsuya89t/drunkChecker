@@ -24,7 +24,7 @@ void showResult(Drunker drunk){
     
     //バー用変数
     //Mat img = cv::Mat::zeros(500, 500, CV_8UC3);
-    Point bar1 = Point(0, drunk.result_img.size().height-50);
+    Point bar1 = Point(0, drunk.result_img.size().height-20);
     Point bar2;
     
     
@@ -45,7 +45,7 @@ void showResult(Drunker drunk){
     center_x = (drunk.x_max+drunk.x_min)/2;
     center_y = (drunk.y_max+drunk.y_min)/2;
     
-    bar2 = Point(500, drunk.result_img.size().height);
+    bar2 = Point(drunk.result_img.size().width/2, drunk.result_img.size().height);
     
     if (drunk.flug == 1) {
         //printf("hit\n");
