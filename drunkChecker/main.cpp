@@ -16,11 +16,12 @@ using namespace cv;
 int main(int argc, const char * argv[]) {
     
     
-    VideoCapture cap(0);
+    //VideoCapture cap(0);  //PCのカメラ入力
+    VideoCapture cap("");   //動画ファイル入力
     Mat ground, result;
     Drunker drunker;
     
-    cap >> ground;
+    //cap >> ground;
         
     while(1){
         drunker = camera(cap, ground);   //前田担当
