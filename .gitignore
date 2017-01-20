@@ -40,3 +40,6 @@ Pods
 # Mac
 # Macが勝手に作る
 .DS_Store
+
+# movieフォルダ
+mov/
