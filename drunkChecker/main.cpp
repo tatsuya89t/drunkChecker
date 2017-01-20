@@ -22,6 +22,9 @@ int main(int argc, const char * argv[]) {
     Mat result;
     Drunker drunker;
     
+    //動画の総フレーム数取得
+    int max = cap.get(CAP_PROP_FRAME_COUNT);
+    int now;//現在のフレーム
     //背景画像の入力
     cap >> ground;
     
@@ -31,11 +34,13 @@ int main(int argc, const char * argv[]) {
     }
     
     while(1){
-        //動画終了した時用
-        if(cv::waitKey(30) >= 0 || cap.get(CV_CAP_PROP_POS_AVI_RATIO) == 1){
-            waitKey();
-            break;
+        //ループ再生
+        now = cap.get(CAP_PROP_POS_FRAMES);
+        if( now >= max-4 )
+        {
+            cap.set( CAP_PROP_POS_FRAMES , 0 );
         }
+        printf("%d %d\n",now,max-4);
         drunker = camera(cap, ground);   //前田担当
         
         //imshow("result2",drunker.result_img);
