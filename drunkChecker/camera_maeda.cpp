@@ -29,8 +29,8 @@ Drunker camera(VideoCapture cap, Mat ground) {
     
     //膨張収縮処理
     Mat d_img, e_img;
-    //dilate(bin_img, d_img, Mat(), Point(-1,-1),10);
-    //erode(d_img, e_img, Mat(), Point(-1,-1),10);
+    dilate(bin_img, d_img, Mat(), Point(-1,-1),10);
+    erode(d_img, e_img, Mat(), Point(-1,-1),10);
     
     //膨張収縮画像表示
     //imshow("result",e_img);
@@ -46,8 +46,13 @@ Drunker camera(VideoCapture cap, Mat ground) {
     //imshow("background", ground);
     
     //二値化画像表示
-    //imshow("result",bin_img);
+    imshow("result",bin_img);
     
+    if(d.y_min > frame.size().height/2){
+        d.flug=1;
+    }else{
+        d.flug=0;
+    }
     //検出結果画像を入力
     d.result_img = frame.clone();
     
