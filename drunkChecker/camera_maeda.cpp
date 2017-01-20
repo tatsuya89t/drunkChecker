@@ -46,13 +46,11 @@ Drunker camera(VideoCapture cap, Mat ground) {
     //imshow("background", ground);
     
     //二値化画像表示
-    imshow("result",bin_img);
+    //imshow("result",bin_img);
     
-    if(d.y_min > 100){
-        d.flug=1;
-    }else{
-        d.flug=0;
-    }
+    d = Dist(d, bin_img);
+    
+    
     //検出結果画像を入力
     d.result_img = frame.clone();
     
@@ -127,5 +125,26 @@ Drunker Maxmin(Mat bin_img, Drunker d){
     //数値確認用
     //printf("%d, %d, %d, %d\n",d.x_min,d.x_max,d.y_min,d.y_max);
     
+    return d;
+}
+
+//危険度
+Drunker Dist(Drunker d, Mat bin_img){
+    //危険ポイントとの距離
+    int dist = bin_img.size().height/2-20;      //危険ポイント
+    d.risk = pow((d.y_max-dist)*(d.y_max-dist),0.5);
+    d.risk = d.risk/124.0;
+    if(d.risk>=1.0){
+        d.risk=1.0;
+    }
+    d.risk =(100-(d.risk*100));
+    //printf("%.3f\n", d.risk); //危険度をパーセントで表示
+    
+    //一定の危険度になったら警告
+    if(d.risk > 70.0){
+        d.flug=1;
+    }else{
+        d.flug=0;
+    }
     return d;
 }
