@@ -21,5 +21,6 @@ typedef struct Drunker {
 };
 
 Drunker camera(VideoCapture cap, Mat ground);
+
 Drunker abs(Mat bin_img, Drunker d);
 #endif /* defined(__drunkChecker__camera_maeda__) */
