@@ -20,11 +20,13 @@ struct Drunker {
     float risk;         //危険度
     Mat result_img;
     int *param;         //ラベリング用　連結部分の情報の面積とか入れる
+    int num[];          //千鳥足取得用
 };
 
-Drunker camera(VideoCapture cap, Mat ground);
+Drunker camera(Drunker d, VideoCapture cap, Mat ground);
 Mat abs(Mat frame, Mat ground);
 Drunker Maxmin(Mat bin_img, Drunker d);
 Drunker Dist(Drunker d, Mat bin_img);
 Drunker rabering(Drunker d, Mat bin_img);
+Drunker T_step(Drunker d, Mat bin_img);
 #endif /* defined(__drunkChecker__camera_maeda__) */

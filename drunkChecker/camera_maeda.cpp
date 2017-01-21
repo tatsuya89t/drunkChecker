@@ -8,10 +8,7 @@
 
 #include "camera_maeda.h"
 
-Drunker camera(VideoCapture cap, Mat ground) {
-    //飲酒者？情報の構造体
-    Drunker d;
-    
+Drunker camera(Drunker d, VideoCapture cap, Mat ground) {
     //二値化画像保存用
     Mat bin_img;
     
@@ -195,5 +192,12 @@ Drunker rabering(Drunker d, Mat e_img){
 //        num << i;
 //        cv::putText(dst, num.str(), cv::Point(x+5, y+20), cv::FONT_HERSHEY_COMPLEX, 0.7, cv::Scalar(0, 255, 255), 2);
 //    }
+    return d;
+}
+
+//千鳥足検出
+Drunker T_step(Drunker d, Mat bin_img){
+    
+    
     return d;
 }
