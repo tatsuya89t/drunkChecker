@@ -20,7 +20,7 @@ struct Drunker {
     float risk;         //危険度
     Mat result_img;
     int *param;         //ラベリング用　連結部分の情報の面積とか入れる
-    int num[];          //千鳥足取得用
+    int num[353];          //千鳥足取得用
 };
 
 Drunker camera(Drunker d, VideoCapture cap, Mat ground);

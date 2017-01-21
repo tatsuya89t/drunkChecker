@@ -197,7 +197,9 @@ Drunker rabering(Drunker d, Mat e_img){
 
 //千鳥足検出
 Drunker T_step(Drunker d, Mat bin_img){
-    
-    
+    d.num[d.x_min] = d.x_min;
+    for(int i=0; i<bin_img.size().width; i++){
+        printf("%%d = %d\n", i, d.num[i]);
+    }
     return d;
 }
