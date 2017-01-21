@@ -19,10 +19,12 @@ struct Drunker {
     int flug;           //危険アイコンのフラグ
     float risk;         //危険度
     Mat result_img;
+    int *param;         //ラベリング用　連結部分の情報の面積とか入れる
 };
 
 Drunker camera(VideoCapture cap, Mat ground);
 Mat abs(Mat frame, Mat ground);
 Drunker Maxmin(Mat bin_img, Drunker d);
 Drunker Dist(Drunker d, Mat bin_img);
+Drunker rabering(Drunker d, Mat bin_img);
 #endif /* defined(__drunkChecker__camera_maeda__) */

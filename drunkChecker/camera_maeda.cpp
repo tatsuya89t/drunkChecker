@@ -19,10 +19,6 @@ Drunker camera(VideoCapture cap, Mat ground) {
     Mat frame;
     //映像の取得
     cap >> frame;
-    if (frame.empty()) { //入力失敗の場合
-        //fprintf(stderr, "File is not opened.\n");
-        return d;
-    }
     
     //背景差分
     bin_img = abs(frame, ground);
@@ -31,12 +27,17 @@ Drunker camera(VideoCapture cap, Mat ground) {
     Mat d_img, e_img;
     dilate(bin_img, d_img, Mat(), Point(-1,-1),10);
     erode(d_img, e_img, Mat(), Point(-1,-1),10);
-    
     //膨張収縮画像表示
     //imshow("result",e_img);
     
+    //ラベリング処理
+    rabering(d,e_img);
+    
     //白領域のxy座標の最大値最小値
-    d = Maxmin(bin_img, d);
+    d = Maxmin(e_img, d);
+    
+    //危険度みたいな数値の取得処理
+    d = Dist(d, e_img);
     
     //テスト確認用
     // 入力映像の表示
@@ -46,10 +47,7 @@ Drunker camera(VideoCapture cap, Mat ground) {
     //imshow("background", ground);
     
     //二値化画像表示
-    //imshow("result",bin_img);
-    
-    d = Dist(d, bin_img);
-    
+    //imshow("result",e_img);
     
     //検出結果画像を入力
     d.result_img = frame.clone();
@@ -140,11 +138,62 @@ Drunker Dist(Drunker d, Mat bin_img){
     d.risk =(100-(d.risk*100));
     //printf("%.3f\n", d.risk); //危険度をパーセントで表示
     
-    //一定の危険度になったら警告
+    //一定の危険度になったら警告フラグをON
     if(d.risk > 70.0){
         d.flug=1;
     }else{
         d.flug=0;
     }
+    return d;
+}
+
+//ラベリング処理
+Drunker rabering(Drunker d, Mat e_img){
+    // ラベル用画像生成(※CV_32S or CV_16Uにする必要あり)
+    Mat labelImage(e_img.size(), CV_32S);
+    Mat stats;
+    Mat centroids;
+    
+    // ラベリング実行．戻り値がラベル数．また，このサンプルでは8近傍でラベリングする．
+    int nLabels = connectedComponentsWithStats(e_img, labelImage, stats, centroids, 8);
+    
+    // ラベリング結果の描画色を決定
+    std::vector<Vec3b> colors(nLabels);
+    colors[0] = Vec3b(0, 0, 0);
+    for(int label = 1; label < nLabels; ++label){
+        d.param = stats.ptr<int>(label);
+        //ConnectedComponentsTypes::CC_STAT_AREA = 4    //連結している部分の総面積の引数
+        //人の面積の色指定
+        if(d.param[4]> 20 && d.param[4]< 2000){
+            colors[label] = Vec3b(0, 0, 255);
+        }
+        //その他の面積の色指定
+        //        else if(param[4]>5000 && param[4]< 30000){
+        //            colors[label] = Vec3b(255, 0, 0);
+        //        }
+    }
+    
+//    // ラベリング結果の描画
+//    Mat dst(e_img.size(), CV_8UC3);
+//    for(int y = 0; y < dst.rows; ++y){
+//        for(int x = 0; x < dst.cols; ++x){
+//            int label = labelImage.at<int>(y, x);
+//            Vec3b &pixel = dst.at<Vec3b>(y, x);
+//            pixel = colors[label];
+//        }
+//    }
+//    
+//    //面積値の出力
+//    for (int i = 1; i < nLabels; ++i) {
+//        d.param = stats.ptr<int>(i);
+//        std::cout << "area "<< i <<" = " << d.param[4] << std::endl;
+//        
+//        //ROIの左上に番号を書き込む
+//        int x = d.param[0];   //cv::ConnectedComponentsTypes::CC_STAT_LEFT=0  一番左上のx座標
+//        int y = d.param[1];   //cv::ConnectedComponentsTypes::CC_STAT_TOP=1   一番左上のy座標
+//        std::stringstream num;
+//        num << i;
+//        cv::putText(dst, num.str(), cv::Point(x+5, y+20), cv::FONT_HERSHEY_COMPLEX, 0.7, cv::Scalar(0, 255, 255), 2);
+//    }
     return d;
 }
