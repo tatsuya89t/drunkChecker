@@ -33,6 +33,12 @@ int main(int argc, const char * argv[]) {
         return (-1);
     }
     
+    //numの初期化
+    drunker.num[ground.size().width];
+    for(int i=0; i>ground.size().width; i++){
+        drunker.num[i] = 0;
+    }
+    
     while(1){
         //ループ再生
         now = cap.get(CAP_PROP_POS_FRAMES);
