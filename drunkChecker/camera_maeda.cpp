@@ -168,7 +168,7 @@ Drunker rabering(Drunker d, Mat e_img){
             colors[label] = Vec3b(0, 0, 255);
         }
         //その他の面積の色指定
-        //        else if(param[4]>5000 && param[4]< 30000){
+        //        }else if(param[4]>5000 && param[4]< 30000){
         //            colors[label] = Vec3b(255, 0, 0);
         //        }
     }
@@ -212,16 +212,24 @@ Drunker T_step(Drunker d, Mat bin_img){
     d.avr = int(d.sum_coord / d.sum_count);      //x座標の取得座標の平均値
     //printf("%d\n", d.avr);
 
+    //
+    
     //千鳥足の検出
     /*人の移動方向のx座標の中心を取り、左右に揺れている回数が一定を超えたら千鳥足のはず*/
     for(int i=0; i<bin_img.size().width; i++){
-        if(d.num[d.avr-10]>5 && d.num[d.avr+10]>5){
-            d.flug_step=1;
-        }else{
-            d.flug_step=0;
+        if(i<d.avr-70){
+            d.tstep_left_sum=d.tstep_left_sum + d.num[i];
+        }else if(i>d.avr+70){
+            d.tstep_right_sum=d.tstep_right_sum + d.num[i];
         }
-            
-        //printf("%d = %d\n", i, d.num[i]);
     }
+    printf("%d , %d\n", d.tstep_left_sum, d.tstep_right_sum);
+    
+    if(d.tstep_left_sum>5 && d.tstep_right_sum>5){
+        d.flug_step=1;
+    }else{
+        d.flug_step=0;
+    }
+    
     return d;
 }
