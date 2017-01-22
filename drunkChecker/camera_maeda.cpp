@@ -200,10 +200,28 @@ Drunker rabering(Drunker d, Mat e_img){
 
 //千鳥足検出
 Drunker T_step(Drunker d, Mat bin_img){
-    //検出したx座標の最小値の回数を表示
-    d.num[d.x_min]++;
-//    for(int i=0; i<bin_img.size().width; i++){
-//        printf("%d = %d\n", i, d.num[i]);
-//    }
+    int ans=0;  // 人の中心x座標計算用
+    ans = (d.x_min+d.x_max)/2;  //(最小値+最大値)/2
+    //画面外は取得しない
+    if(ans<bin_img.size().width && ans>=0){
+        d.num[ans]++;                       //x座標の取得回数を加算
+        d.sum_count++;                      //x座標の取得回数の合計を加算
+        d.sum_coord = d.sum_coord + ans;    //x座標の取得座標の合計値
+    }
+    
+    d.avr = int(d.sum_coord / d.sum_count);      //x座標の取得座標の平均値
+    //printf("%d\n", d.avr);
+
+    //千鳥足の検出
+    /*人の移動方向のx座標の中心を取り、左右に揺れている回数が一定を超えたら千鳥足のはず*/
+    for(int i=0; i<bin_img.size().width; i++){
+        if(d.num[d.avr-10]>5 && d.num[d.avr+10]>5){
+            d.flug_step=1;
+        }else{
+            d.flug_step=0;
+        }
+            
+        //printf("%d = %d\n", i, d.num[i]);
+    }
     return d;
 }

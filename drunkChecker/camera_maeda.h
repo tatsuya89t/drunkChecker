@@ -16,11 +16,17 @@ using namespace cv;
 struct Drunker {
     int x_min, x_max;   //人領域の横幅
     int y_min, y_max;   //人領域の縦幅
-    int flug;           //危険アイコンのフラグ
+    int flug;           //距離の危険フラグ
+    int flug_step;      //千鳥足の危険フラグ
     float risk;         //危険度
     Mat result_img;
     int *param;         //ラベリング用　連結部分の情報の面積とか入れる
-    int num[353];          //千鳥足取得用
+    
+    int num[353];       //千鳥足取得用
+    int sum_count;      //取得回数の合計値
+    int sum_coord;      //取得座標の合計値
+    int avr;            //取得座標の平均値
+    
 };
 
 Drunker camera(Drunker d, VideoCapture cap, Mat ground);
