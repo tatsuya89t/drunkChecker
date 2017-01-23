@@ -43,3 +43,7 @@ Pods
 
 # movieフォルダ
 mov/
+
+# imgフォルダ直下に保存用フォルダを設置
+img/result/*  
+!.gitkeep

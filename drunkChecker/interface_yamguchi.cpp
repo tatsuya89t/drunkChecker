@@ -80,7 +80,7 @@ void showResult(Drunker drunk){
     
     
     //保存用ファイル名を作成
-    sprintf(resultFile, "../../../../../img/result%d.jpg", resultNum);
+    sprintf(resultFile, "../../../../../img/result/result%d.jpg", resultNum);
     // キー入力
     int keys=waitKey(30);
     //終了キー
