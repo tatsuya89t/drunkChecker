@@ -10,10 +10,18 @@
 
 //
 //typedef struct Drunker {
-//    int x_min, x_max;   //人領域の横幅
-//    int y_min, y_max;   //人領域の縦幅
-//    int flug;
-//    Mat result_img;
+//  int x_min, x_max;   //人領域の横幅
+//  int y_min, y_max;   //人領域の縦幅
+//  int flug;           //距離の危険フラグ
+//  int flug_step;      //千鳥足の危険フラグ
+//  float risk;         //危険度
+//  Mat result_img;
+//  int *param;         //ラベリング用　連結部分の情報の面積とか入れる
+//
+//  int num[353];       //千鳥足取得用
+//  int sum_count;      //取得回数の合計値
+//  int sum_coord;      //取得座標の合計値
+//  int avr;            //取得座標の平均値
 //};
 
 void showResult(Drunker drunk){
@@ -45,14 +53,19 @@ void showResult(Drunker drunk){
     center_x = (drunk.x_max+drunk.x_min)/2;
     center_y = (drunk.y_max+drunk.y_min)/2;
     
-    bar2 = Point(drunk.result_img.size().width/2, drunk.result_img.size().height);
+    bar2 = Point(getBarWidth(drunk.result_img, drunk.risk), drunk.result_img.size().height);
     
     if (drunk.flug == 1) {
         //printf("hit\n");
         result = PinP_tr(result, icon, center_x, center_y);
         //printf("%d, %d\n", center_x, center_y);
-        rectangle(result, bar1, bar2, cv::Scalar(200,0,0), -1, CV_AA);
+        
     }
+    
+    
+    printf("%f\n", drunk.risk);
+    
+    rectangle(result, bar1, bar2, cv::Scalar(200,0,0), -1, CV_AA);
     
     imshow("resultFinal", result);
     
@@ -66,11 +79,11 @@ void saveResult(int state, void* userdata){
 int getBarWidth(Mat img, int res){
     
     int w = 0;
-    int max = 20;
+    //int max = 20;
     int parWidth = img.size().width/100;
-    int parW = (int)((double)res/max * 100);
+    int maxWidth = (int)res;
     
-    for (int i=0; i<=parW; i++) {
+    for (int i=0; i<=maxWidth; i++) {
         w += parWidth;
         if (w > img.size().width) {
             w = img.size().width;
