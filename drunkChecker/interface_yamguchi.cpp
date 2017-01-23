@@ -29,6 +29,7 @@ void showResult(Drunker drunk){
     Mat result;
     int center_x = 0;
     int center_y = 0;
+    Scalar s = Scalar(200,0,0);
     
     //バー用変数
     //Mat img = cv::Mat::zeros(500, 500, CV_8UC3);
@@ -59,13 +60,19 @@ void showResult(Drunker drunk){
         //printf("hit\n");
         result = PinP_tr(result, icon, center_x, center_y);
         //printf("%d, %d\n", center_x, center_y);
-        
+    }
+    
+    if (50 < drunk.risk && drunk.risk < 70) {
+        s = Scalar(0,200,0);
+    }
+    else if (drunk.risk > 70){
+        s = Scalar(0,0,200);
     }
     
     
-    printf("%f\n", drunk.risk);
+    //printf("%d, %d\n", drunk.result_img.size().width);
     
-    rectangle(result, bar1, bar2, cv::Scalar(200,0,0), -1, CV_AA);
+    rectangle(result, bar1, bar2, s, -1, CV_AA);
     
     imshow("resultFinal", result);
     
@@ -78,9 +85,9 @@ void saveResult(int state, void* userdata){
 //％バーの長さを算出
 int getBarWidth(Mat img, int res){
     
-    int w = 0;
+    float w = 0;
     //int max = 20;
-    int parWidth = img.size().width/100;
+    float parWidth = (float)img.size().width / 100.0;
     int maxWidth = (int)res;
     
     for (int i=0; i<=maxWidth; i++) {
@@ -90,7 +97,9 @@ int getBarWidth(Mat img, int res){
         }
     }
     
-    return w;
+    printf("%f ,%d, %f\n", parWidth, img.size().width, w);
+    
+    return (int)w;
 }
 
 // 画像を画像に貼り付ける関数
