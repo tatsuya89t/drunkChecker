@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "camera_maeda.h"
 #include <math.h>
+#include <string.h>
 
 void showResult(Drunker drunk);
 void saveResult(int state, void* userdata);

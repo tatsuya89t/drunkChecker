@@ -24,6 +24,8 @@
 //  int avr;            //取得座標の平均値
 //};
 
+int resultNum=0;
+
 void showResult(Drunker drunk){
     
     Mat result;
@@ -36,6 +38,8 @@ void showResult(Drunker drunk){
     Point bar1 = Point(0, drunk.result_img.size().height-20);
     Point bar2;
     
+    char resultFile[100];
+    //char* jpg = ".jpg";
     
     Mat icon = imread("../../../../../img/dangerIcon.png");
     
@@ -74,11 +78,18 @@ void showResult(Drunker drunk){
     
     rectangle(result, bar1, bar2, s, -1, CV_AA);
     
-    imshow("resultFinal", result);
     
-}
-
-void saveResult(int state, void* userdata){
+    //保存用ファイル名を作成
+    sprintf(resultFile, "../../../../../img/result%d.jpg", resultNum);
+    // キー入力
+    int keys=waitKey(30);
+    //終了キー
+    if (keys == 's'){
+        imwrite(resultFile, result);
+        resultNum++;
+    }
+    
+    imshow("resultFinal", result);
     
 }
 
