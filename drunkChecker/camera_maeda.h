@@ -27,6 +27,9 @@ struct Drunker {
     int sum_coord;      //取得座標の合計値
     int avr;            //取得座標の平均値
     
+    int tstep_left_sum;   //人が左に行った回数の合計
+    int tstep_right_sum;  //人が右に行った回数の合計
+    
 };
 
 Drunker camera(Drunker d, VideoCapture cap, Mat ground);
