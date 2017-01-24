@@ -129,8 +129,8 @@ Drunker Maxmin(Mat bin_img, Drunker d){
 //危険度
 Drunker Dist(Drunker d, Mat bin_img){
     //危険ポイントとの距離
-    int dist = bin_img.size().height/2-20;      //危険ポイント
-    d.risk = pow((d.y_max-dist)*(d.y_max-dist),0.5);
+    int dist = bin_img.size().width/2+100;      //危険ポイント
+    d.risk = pow((d.x_max-dist)*(d.x_max-dist),0.5);
     d.risk = d.risk/124.0;
     if(d.risk>=1.0){
         d.risk=1.0;
