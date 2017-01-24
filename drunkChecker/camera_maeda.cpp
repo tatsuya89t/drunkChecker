@@ -51,7 +51,7 @@ Drunker camera(Drunker d, VideoCapture cap, Mat ground) {
     //imshow("background", ground);
     
     //二値化画像表示
-    imshow("result",e_img2);
+    //imshow("result",e_img2);
     
     //検出結果画像を入力
     d.result_img = frame.clone();

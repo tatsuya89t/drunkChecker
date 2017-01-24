@@ -25,7 +25,7 @@
 //};
 
 int resultNum=0;
-
+int stop=0;
 void showResult(Drunker drunk){
     
     Mat result;
@@ -47,13 +47,17 @@ void showResult(Drunker drunk){
     
     Mat icon = imread("../../../../../img/dangerIcon.png");
     
-    result = Mat::zeros(drunk.result_img.size().height+80, drunk.result_img.size().width, CV_8UC3);
+    result = Mat::zeros(drunk.result_img.size().height+80, drunk.result_img.size().width+100, CV_8UC3);
     cv::Vec3b s_vec; //色値
     
     for(int y=0; y<drunk.result_img.size().height+80; y++){
-        for(int x=0; x<drunk.result_img.size().width; x++){
-            if(y>=0 && y<drunk.result_img.size().height){
+        for(int x=0; x<drunk.result_img.size().width+100; x++){
+            if(y>=0 && y<drunk.result_img.size().height && x<drunk.result_img.size().width){
                 s_vec = drunk.result_img.at<Vec3b>(y, x); //カメラ画素値の取得
+            }else if(x>=drunk.result_img.size().width && y<=100){
+                s_vec[0] = 255;
+                s_vec[1] = 255;
+                s_vec[2] = 255;
             }else{
                 s_vec = 0;
             }
@@ -66,6 +70,9 @@ void showResult(Drunker drunk){
         imshow("resultFinal", result);
         return;
     }
+    
+    // コールバックを設定
+    cv::setMouseCallback("resultFinal", my_mouse_callback, (void *)&result);
     
     //drunk.flug = 1;
 //    drunk.x_min = 500;
@@ -103,6 +110,19 @@ void showResult(Drunker drunk){
     textPoint.y = drunk.result_img.size().height+50;
     cv::putText(result, "save a capture image.", textPoint, FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(0,0,200), 2, CV_AA);
     
+    //停止ボタン
+    textPoint.x = drunk.result_img.size().width+25;   textPoint.y = 55;
+    if(stop==0){
+        cv::putText(result, "STOP", textPoint, FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(0,0,200), 2, CV_AA);
+    }else if(stop==1){
+        textPoint.x = drunk.result_img.size().width+20;   textPoint.y = 45;
+        cv::putText(result, "Press", textPoint, FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(0,0,200), 2, CV_AA);
+        textPoint.x = drunk.result_img.size().width+30;   textPoint.y = 65;
+        cv::putText(result, "Key", textPoint, FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(0,0,200), 2, CV_AA);
+        imshow("resultFinal", result);
+        waitKey();
+        stop=0;
+    }
     //保存用ファイル名を作成
     sprintf(resultFile, "../../../../../img/result/result%d.jpg", resultNum);
     // キー入力
@@ -115,6 +135,19 @@ void showResult(Drunker drunk){
     
     imshow("resultFinal", result);
     
+}
+
+// コールバック関数
+void my_mouse_callback(int event, int x, int y, int flags, void* param){
+        switch (event){
+                case cv::EVENT_LBUTTONDOWN:
+                //停止ボタン
+                if(x>640 && y<100 && stop==0){
+                    stop=1;
+                }
+                
+                break;
+        }
 }
 
 //％バーの長さを算出
