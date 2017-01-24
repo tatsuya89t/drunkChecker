@@ -41,6 +41,8 @@ void showResult(Drunker drunk){
     char resultFile[100];
     //char* jpg = ".jpg";
     
+    Size img_size = drunk.result_img.size();
+    
     Point textPoint = Point(10, drunk.result_img.size().height+30);
     
     Mat icon = imread("../../../../../img/dangerIcon.png");
@@ -73,14 +75,17 @@ void showResult(Drunker drunk){
     center_x = (drunk.x_max+drunk.x_min)/2;
     center_y = (drunk.y_max+drunk.y_min)/2;
     
+    //バーの長さを決定
     bar2 = Point(getBarWidth(drunk.result_img, drunk.risk), drunk.result_img.size().height);
     
+    //危険フラグがある時，対象の近くに注意マークを付与
     if (drunk.flug == 1) {
         //printf("hit\n");
         result = PinP_tr(result, icon, center_x, center_y);
         //printf("%d, %d\n", center_x, center_y);
     }
     
+    //バーの長さによって色を変更
     if (50 < drunk.risk && drunk.risk < 70) {
         s = Scalar(0,200,0);
     }
@@ -92,6 +97,7 @@ void showResult(Drunker drunk){
     //printf("%d, %d\n", drunk.result_img.size().width);
     
     rectangle(result, bar1, bar2, s, -1, CV_AA);
+    line(result, Point(img_size.width/2+100, 0), Point(img_size.width/2+100, img_size.height), Scalar(0, 0, 200));
     
     cv::putText(result, "If input a 's' key,", textPoint, FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(0,0,200), 2, CV_AA);
     textPoint.y = drunk.result_img.size().height+50;
