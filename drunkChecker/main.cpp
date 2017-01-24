@@ -55,8 +55,14 @@ int main(int argc, const char * argv[]) {
         // キー入力
         int key=waitKey(30);
         //終了キー
-        if (key == 'q' || key == 'Q')   break;
-        
+        if (key == 'q' || key == 'Q'){
+            waitKey();
+            break;
+        }
+        else if (key == 'v' || key == 'V') {
+            waitKey();
+        }
+    
     }
     
     return 0;
