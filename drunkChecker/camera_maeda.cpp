@@ -32,7 +32,7 @@ Drunker camera(Drunker d, VideoCapture cap, Mat ground) {
     //imshow("result",e_img);
     
     //ラベリング処理
-    rabering(d,e_img2);
+    //rabering(d,e_img2);
     
     //白領域のxy座標の最大値最小値
     d = Maxmin(e_img2, d);
@@ -51,7 +51,7 @@ Drunker camera(Drunker d, VideoCapture cap, Mat ground) {
     //imshow("background", ground);
     
     //二値化画像表示
-    //imshow("result",e_img);
+    imshow("result",e_img2);
     
     //検出結果画像を入力
     d.result_img = frame.clone();
@@ -133,9 +133,9 @@ Drunker Maxmin(Mat bin_img, Drunker d){
 //危険度
 Drunker Dist(Drunker d, Mat bin_img){
     //危険ポイントとの距離
-    int dist = bin_img.size().width/2+100;      //危険ポイント
+    int dist = bin_img.size().width/2+180;      //危険ポイント
     d.risk = pow((d.x_max-dist)*(d.x_max-dist),0.5);
-    d.risk = d.risk/124.0;
+    d.risk = d.risk/(bin_img.size().width/2+180);
     if(d.risk>=1.0){
         d.risk=1.0;
     }
@@ -187,19 +187,19 @@ Drunker rabering(Drunker d, Mat e_img){
         }
     }
     
-    //面積値の出力
-    for (int i = 1; i < nLabels; ++i) {
-        d.param = stats.ptr<int>(i);
-        std::cout << "area "<< i <<" = " << d.param[4] << std::endl;
-        
-        //ROIの左上に番号を書き込む
-        int x = d.param[0];   //cv::ConnectedComponentsTypes::CC_STAT_LEFT=0  一番左上のx座標
-        int y = d.param[1];   //cv::ConnectedComponentsTypes::CC_STAT_TOP=1   一番左上のy座標
-        std::stringstream num;
-        num << i;
-        cv::putText(dst, num.str(), cv::Point(x+5, y+20), cv::FONT_HERSHEY_COMPLEX, 0.7, cv::Scalar(0, 255, 255), 2);
-    }
-    imshow("result",dst);
+//    //面積値の出力
+//    for (int i = 1; i < nLabels; ++i) {
+//        d.param = stats.ptr<int>(i);
+//        std::cout << "area "<< i <<" = " << d.param[4] << std::endl;
+//        
+//        //ROIの左上に番号を書き込む
+//        int x = d.param[0];   //cv::ConnectedComponentsTypes::CC_STAT_LEFT=0  一番左上のx座標
+//        int y = d.param[1];   //cv::ConnectedComponentsTypes::CC_STAT_TOP=1   一番左上のy座標
+//        std::stringstream num;
+//        num << i;
+//        cv::putText(dst, num.str(), cv::Point(x+5, y+20), cv::FONT_HERSHEY_COMPLEX, 0.7, cv::Scalar(0, 255, 255), 2);
+//    }
+    //imshow("result",dst);
     return d;
 }
 

@@ -97,7 +97,7 @@ void showResult(Drunker drunk){
     //printf("%d, %d\n", drunk.result_img.size().width);
     
     rectangle(result, bar1, bar2, s, -1, CV_AA);
-    line(result, Point(img_size.width/2+100, 0), Point(img_size.width/2+100, img_size.height), Scalar(0, 0, 200));
+    line(result, Point(img_size.width/2+180, 0), Point(img_size.width/2+180, img_size.height), Scalar(0, 0, 200));
     
     cv::putText(result, "If input a 's' key,", textPoint, FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(0,0,200), 2, CV_AA);
     textPoint.y = drunk.result_img.size().height+50;
@@ -132,7 +132,7 @@ int getBarWidth(Mat img, int res){
         }
     }
     
-    printf("%f ,%d, %f\n", parWidth, img.size().width, w);
+    //printf("%f ,%d, %f\n", parWidth, img.size().width, w);
     
     return (int)w;
 }

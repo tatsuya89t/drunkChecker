@@ -45,11 +45,11 @@ int main(int argc, const char * argv[]) {
         {
             cap.set( CAP_PROP_POS_FRAMES , 0 );
             //numの初期化
-            for(int i=0; i>ground.size().width; i++){
-                drunker.num[i] = 0;
-            }
-            drunker.sum_count=0;                      //x座標の取得回数の合計を加算
-            drunker.sum_coord = 0;    //x座標の取得座標の合計値
+//            for(int i=0; i>ground.size().width; i++){
+//                drunker.num[i] = 0;
+//            }
+//            drunker.sum_count=0;                      //x座標の取得回数の合計を加算
+//            drunker.sum_coord = 0;    //x座標の取得座標の合計値
 
         }
         //printf("%d %d\n",now,max-4);
