@@ -47,7 +47,7 @@ Drunker camera(Drunker d, VideoCapture cap, Mat ground) {
     //imshow("background", ground);
     
     //二値化画像表示
-    //imshow("result",e_img);
+    imshow("result",e_img);
     
     //検出結果画像を入力
     d.result_img = frame.clone();
@@ -76,7 +76,7 @@ Mat abs(Mat frame, Mat ground){
             s_f = dst_f.at<unsigned char>(y, x); //カメラ画素値の取得
             s_g = dst_g.at<unsigned char>(y, x); //背景画素値の取得
             ans = abs(s_g - s_f);
-            if(ans<100){
+            if(ans<50){
                 s_f = 0;
             }
             
@@ -84,7 +84,7 @@ Mat abs(Mat frame, Mat ground){
         }
     }
 
-    threshold(result, bin_img, 128 ,255, cv::THRESH_BINARY|cv::THRESH_OTSU);
+    threshold(result, bin_img, 200 ,255, cv::THRESH_BINARY|cv::THRESH_OTSU);
     return bin_img;
 }
 
@@ -223,7 +223,7 @@ Drunker T_step(Drunker d, Mat bin_img){
             d.tstep_right_sum=d.tstep_right_sum + d.num[i];
         }
     }
-    printf("%d , %d\n", d.tstep_left_sum, d.tstep_right_sum);
+    //printf("%d , %d\n", d.tstep_left_sum, d.tstep_right_sum);
     
     if(d.tstep_left_sum>5 && d.tstep_right_sum>5){
         d.flug_step=1;
