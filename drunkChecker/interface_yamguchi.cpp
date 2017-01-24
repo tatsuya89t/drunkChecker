@@ -41,6 +41,8 @@ void showResult(Drunker drunk){
     char resultFile[100];
     //char* jpg = ".jpg";
     
+    Point textPoint = Point(10, drunk.result_img.size().height-70);
+    
     Mat icon = imread("../../../../../img/dangerIcon.png");
     
     result = drunk.result_img.clone();
@@ -78,6 +80,9 @@ void showResult(Drunker drunk){
     
     rectangle(result, bar1, bar2, s, -1, CV_AA);
     
+    cv::putText(result, "If input a 's' key,", textPoint, FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(0,0,200), 2, CV_AA);
+    textPoint.y = drunk.result_img.size().height-50;
+    cv::putText(result, "save a capture image.", textPoint, FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(0,0,200), 2, CV_AA);
     
     //保存用ファイル名を作成
     sprintf(resultFile, "../../../../../img/result/result%d.jpg", resultNum);
