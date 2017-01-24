@@ -24,17 +24,21 @@ Drunker camera(Drunker d, VideoCapture cap, Mat ground) {
     Mat d_img, e_img;
     dilate(bin_img, d_img, Mat(), Point(-1,-1),10);
     erode(d_img, e_img, Mat(), Point(-1,-1),10);
+    Mat d_img2, e_img2;
+    dilate(e_img, d_img2, Mat(), Point(-1,-1),5);
+    erode(d_img2, e_img2, Mat(), Point(-1,-1),5);
+    
     //膨張収縮画像表示
     //imshow("result",e_img);
     
     //ラベリング処理
-    //rabering(d,e_img);
+    rabering(d,e_img2);
     
     //白領域のxy座標の最大値最小値
-    d = Maxmin(e_img, d);
+    d = Maxmin(e_img2, d);
     
     //危険度みたいな数値の取得処理
-    d = Dist(d, e_img);
+    d = Dist(d, e_img2);
     
     //千鳥足を検出する予定
     //d = T_step(d, e_img);
@@ -47,7 +51,7 @@ Drunker camera(Drunker d, VideoCapture cap, Mat ground) {
     //imshow("background", ground);
     
     //二値化画像表示
-    imshow("result",e_img);
+    //imshow("result",e_img);
     
     //検出結果画像を入力
     d.result_img = frame.clone();
@@ -173,28 +177,29 @@ Drunker rabering(Drunker d, Mat e_img){
         //        }
     }
     
-//    // ラベリング結果の描画
-//    Mat dst(e_img.size(), CV_8UC3);
-//    for(int y = 0; y < dst.rows; ++y){
-//        for(int x = 0; x < dst.cols; ++x){
-//            int label = labelImage.at<int>(y, x);
-//            Vec3b &pixel = dst.at<Vec3b>(y, x);
-//            pixel = colors[label];
-//        }
-//    }
-//    
-//    //面積値の出力
-//    for (int i = 1; i < nLabels; ++i) {
-//        d.param = stats.ptr<int>(i);
-//        std::cout << "area "<< i <<" = " << d.param[4] << std::endl;
-//        
-//        //ROIの左上に番号を書き込む
-//        int x = d.param[0];   //cv::ConnectedComponentsTypes::CC_STAT_LEFT=0  一番左上のx座標
-//        int y = d.param[1];   //cv::ConnectedComponentsTypes::CC_STAT_TOP=1   一番左上のy座標
-//        std::stringstream num;
-//        num << i;
-//        cv::putText(dst, num.str(), cv::Point(x+5, y+20), cv::FONT_HERSHEY_COMPLEX, 0.7, cv::Scalar(0, 255, 255), 2);
-//    }
+    // ラベリング結果の描画
+    Mat dst(e_img.size(), CV_8UC3);
+    for(int y = 0; y < dst.rows; ++y){
+        for(int x = 0; x < dst.cols; ++x){
+            int label = labelImage.at<int>(y, x);
+            Vec3b &pixel = dst.at<Vec3b>(y, x);
+            pixel = colors[label];
+        }
+    }
+    
+    //面積値の出力
+    for (int i = 1; i < nLabels; ++i) {
+        d.param = stats.ptr<int>(i);
+        std::cout << "area "<< i <<" = " << d.param[4] << std::endl;
+        
+        //ROIの左上に番号を書き込む
+        int x = d.param[0];   //cv::ConnectedComponentsTypes::CC_STAT_LEFT=0  一番左上のx座標
+        int y = d.param[1];   //cv::ConnectedComponentsTypes::CC_STAT_TOP=1   一番左上のy座標
+        std::stringstream num;
+        num << i;
+        cv::putText(dst, num.str(), cv::Point(x+5, y+20), cv::FONT_HERSHEY_COMPLEX, 0.7, cv::Scalar(0, 255, 255), 2);
+    }
+    imshow("result",dst);
     return d;
 }
 
