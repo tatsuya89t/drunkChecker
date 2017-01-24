@@ -223,7 +223,7 @@ Drunker T_step(Drunker d, Mat bin_img){
             d.tstep_right_sum=d.tstep_right_sum + d.num[i];
         }
     }
-    printf("%d , %d\n", d.tstep_left_sum, d.tstep_right_sum);
+    //printf("%d , %d\n", d.tstep_left_sum, d.tstep_right_sum);
     
     if(d.tstep_left_sum>5 && d.tstep_right_sum>5){
         d.flug_step=1;
