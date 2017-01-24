@@ -28,7 +28,7 @@ Drunker camera(Drunker d, VideoCapture cap, Mat ground) {
     //imshow("result",e_img);
     
     //ラベリング処理
-    rabering(d,e_img);
+    //rabering(d,e_img);
     
     //白領域のxy座標の最大値最小値
     d = Maxmin(e_img, d);
@@ -37,7 +37,7 @@ Drunker camera(Drunker d, VideoCapture cap, Mat ground) {
     d = Dist(d, e_img);
     
     //千鳥足を検出する予定
-    d = T_step(d, e_img);
+    //d = T_step(d, e_img);
     
     //テスト確認用
     // 入力映像の表示
@@ -217,19 +217,19 @@ Drunker T_step(Drunker d, Mat bin_img){
     //千鳥足の検出
     /*人の移動方向のx座標の中心を取り、左右に揺れている回数が一定を超えたら千鳥足のはず*/
     for(int i=0; i<bin_img.size().width; i++){
-        if(i<d.avr-70){
+        if(i<d.avr-40){
             d.tstep_left_sum=d.tstep_left_sum + d.num[i];
-        }else if(i>d.avr+70){
+        }else if(i>d.avr+40){
             d.tstep_right_sum=d.tstep_right_sum + d.num[i];
         }
     }
     //printf("%d , %d\n", d.tstep_left_sum, d.tstep_right_sum);
     
-    if(d.tstep_left_sum>5 && d.tstep_right_sum>5){
-        d.flug_step=1;
-    }else{
-        d.flug_step=0;
-    }
+//    if(d.tstep_left_sum>5 && d.tstep_right_sum>5){
+//        d.flug=1;
+//    }else{
+//        d.flug=0;
+//    }
     
     return d;
 }

@@ -41,11 +41,24 @@ void showResult(Drunker drunk){
     char resultFile[100];
     //char* jpg = ".jpg";
     
-    Point textPoint = Point(10, drunk.result_img.size().height-70);
+    Point textPoint = Point(10, drunk.result_img.size().height+30);
     
     Mat icon = imread("../../../../../img/dangerIcon.png");
     
-    result = drunk.result_img.clone();
+    result = Mat::zeros(drunk.result_img.size().height+80, drunk.result_img.size().width, CV_8UC3);
+    cv::Vec3b s_vec; //色値
+    
+    for(int y=0; y<drunk.result_img.size().height+80; y++){
+        for(int x=0; x<drunk.result_img.size().width; x++){
+            if(y>=0 && y<drunk.result_img.size().height){
+                s_vec = drunk.result_img.at<Vec3b>(y, x); //カメラ画素値の取得
+            }else{
+                s_vec = 0;
+            }
+            result.at<cv::Vec3b>(y, x) = s_vec;
+        }
+    }
+    //result = drunk.result_img.clone();
     if(icon.empty()){
         printf("Don't read a image file!\n");
         imshow("resultFinal", result);
@@ -81,7 +94,7 @@ void showResult(Drunker drunk){
     rectangle(result, bar1, bar2, s, -1, CV_AA);
     
     cv::putText(result, "If input a 's' key,", textPoint, FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(0,0,200), 2, CV_AA);
-    textPoint.y = drunk.result_img.size().height-50;
+    textPoint.y = drunk.result_img.size().height+50;
     cv::putText(result, "save a capture image.", textPoint, FONT_HERSHEY_SIMPLEX, 0.6, cv::Scalar(0,0,200), 2, CV_AA);
     
     //保存用ファイル名を作成
