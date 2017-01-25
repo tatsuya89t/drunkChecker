@@ -230,7 +230,7 @@ Drunker T_step(Drunker d, Mat bin_img){
     }
     //printf("%d , %d\n", d.tstep_left_sum, d.tstep_right_sum);
     
-//    if(d.tstep_left_sum>5 && d.tstep_right_sum>5){
+//    if(d.tstep_left_sum>500 && d.tstep_right_sum>500){
 //        d.flug=1;
 //    }else{
 //        d.flug=0;

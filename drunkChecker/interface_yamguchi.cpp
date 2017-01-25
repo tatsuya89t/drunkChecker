@@ -72,7 +72,7 @@ void showResult(Drunker drunk){
     }
     
     // コールバックを設定
-    cv::setMouseCallback("resultFinal", my_mouse_callback, (void *)&result);
+    cv::setMouseCallback("resultFinal", my_mouse_callback, 0);
     
     //drunk.flug = 1;
 //    drunk.x_min = 500;

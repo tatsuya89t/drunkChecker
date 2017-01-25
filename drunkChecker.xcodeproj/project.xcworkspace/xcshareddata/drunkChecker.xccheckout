@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>C63325DB-1576-4DAC-AEA5-6D8C6EBB6D33</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>drunkChecker</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>0EFA36E094AA83BE9D4BA6C3EAFE9935A3BA0775</key>
 		<string>https://github.com/tatsuya89t/drunkChecker.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>drunkChecker.xcodeproj/project.xcworkspace</string>
+	<string>drunkChecker.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>0EFA36E094AA83BE9D4BA6C3EAFE9935A3BA0775</key>
